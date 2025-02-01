@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <title>API 配置</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-color: #f7f7f7;
+        }
+        .top-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        .top-bar .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 10px;
+            background-color: #666;
+            border-radius: 4px;
+        }
+        .top-bar a:hover {
+            background-color: #555;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0 0 20px;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 18px;
+        }
+        label {
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 6px;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select {
+            padding: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .key-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .key-list li {
+            margin: 4px 0;
+            color: #333;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航，和主页风格一致 -->
+    <div class="top-bar">
+        <div class="nav-links">
+            <a href="/">主页</a>
+            <a href="/api_config">API配置</a>
+            <a href="/logout">退出</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>API 配置</h1>
+        <div class="section">
+            <h2>设置或更新 Key</h2>
+            <form method="POST" action="/set_api_key">
+                <label for="provider">模型：</label><br/>
+                <select name="provider" id="provider">
+                    <option value="openai">OpenAI</option>
+                    <option value="qwen">Qwen</option>
+                </select>
+                <br/>
+                <label for="api_key">API Key：</label><br/>
+                <input type="text" name="api_key" id="api_key" placeholder="sk-xxx">
+                <input type="submit" value="更新Key">
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>已配置 Key</h2>
+            <ul class="key-list">
+                {% for k, v in user_keys.items() %}
+                    <li>{{ k }}: {{ v[:8] }}******</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

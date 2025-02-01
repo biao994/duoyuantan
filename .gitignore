@@ -1,0 +1,19 @@
+# Python相关
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+
+# 虚拟环境
+venv/
+.env/
+.venv/
+
+# IDE相关
+.vscode/
+.idea/
+
+# 操作系统相关
+.DS_Store
+Thumbs.db

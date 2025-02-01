@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <title>主页</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-color: #f7f7f7;
+        }
+        .top-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            position: relative;
+        }
+        .top-bar .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 10px;
+            background-color: #666;
+            border-radius: 4px;
+        }
+        .top-bar a:hover {
+            background-color: #555;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0 0 20px;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 18px;
+        }
+        .chat-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .chat-list li {
+            margin: 4px 0;
+        }
+        .chat-list a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .chat-list a:hover {
+            text-decoration: underline;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航栏 -->
+    <div class="top-bar">
+        <div class="nav-links">
+            <!-- 主页的链接可以指向 / 或当前页，也可不放 -->
+            <a href="/">主页</a>
+            <a href="/api_config">API配置</a>
+            <a href="/logout">退出</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 假设后端传入 user.username -->
+        <h1>欢迎，{{ user.username }}</h1>
+
+        <!-- 这里可以放一些主页内容，比如对话列表 -->
+        <div class="section">
+            <h2>我的对话</h2>
+            <form method="POST" action="/create_chat">
+                <input type="submit" value="新建对话">
+            </form>
+            <ul class="chat-list">
+                {% for c in chats %}
+                  <li>
+                    <a href="/chat/{{ c.id }}">
+                      {{ c.title }} ({{ c.created_at }})
+                    </a>
+                  </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- 你也可以加更多区块，如“快速开始”、“公告”等 -->
+
+    </div>
+</body>
+</html>

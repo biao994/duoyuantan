@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <title>对话ID {{ chat.id }}</title>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .flash-msg {
+            background-color: #ffeeba;
+            border: 1px solid #ffdf7e;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            color: #856404;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* 简单的块间距 */
+        }
+
+        /* 模型选择区 */
+        .model-selection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .model-selection > div {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+        .model-selection label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .model-selection select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        /* 对话历史 */
+        .messages {
+            height: 400px;
+            overflow-y: scroll;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .user-msg {
+            color: #2b81d4;
+            font-weight: bold;
+        }
+        .assistant-msg {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .msg-content {
+            margin-left: 10px;
+            white-space: pre-wrap;
+        }
+
+        /* 输入区域 */
+        .input-area {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-area label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .input-area textarea {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            min-height: 80px;
+        }
+        .input-area button {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .input-area button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .model-selection {
+                flex-direction: column;
+            }
+            .messages {
+                height: 300px;
+            }
+        }
+    </style>
+    <script>
+        // 如果需要动态联动模型版本，可以在这里做：
+        document.addEventListener('DOMContentLoaded', function() {
+            const providerSelect = document.getElementById('model_provider');
+            const versionSelect = document.getElementById('model_version');
+
+            const modelOptions = {
+                'openai': [
+                    { value: 'gpt-3.5-turbo', text: 'GPT-3.5' },
+                    { value: 'gpt-4', text: 'GPT-4' },
+                    { value: 'gpt-4o', text: 'GPT-4o' },
+                    { value: 'gpt-4o-mini', text: 'GPT-4o-mini' },
+                ],
+                'qwen': [
+                { value: 'qwen-plus', text: 'Qwen2.5-Plus' },
+                { value: 'qwen-max', text: 'Qwen2.5-Max' }
+                ]
+            };
+
+            providerSelect.addEventListener('change', function() {
+                const selectedProvider = this.value;
+                versionSelect.innerHTML = '<option value="" disabled selected>--请选择版本--</option>';
+                if (modelOptions[selectedProvider]) {
+                    modelOptions[selectedProvider].forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option.value;
+                        opt.textContent = option.text;
+                        versionSelect.appendChild(opt);
+                    });
+                }
+            });
+
+
+            {% if current_provider %}
+                providerSelect.value = "{{ current_provider }}";
+                providerSelect.dispatchEvent(new Event('change'));
+                {% if current_version %}
+                    setTimeout(() => {
+                        versionSelect.value = "{{ current_version }}";
+                    }, 100);
+                {% endif %}
+            {% endif %}
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>对话：{{ chat.title }}</h1>
+        <p><a href="/">返回主页</a></p>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for msg in messages %}
+              <div class="flash-msg">{{ msg }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <!-- 只用一个表单提交：model_provider, model_version, user_input -->
+        <!-- 提交到 /chat/<id> (POST) 或后端原本处理的路由 -->
+        <form method="POST" action="">
+
+            <!-- 1. 模型选择放上面 -->
+            <div class="model-selection">
+                <div>
+                    <label for="model_provider">模型：</label>
+                    <select id="model_provider" name="model_provider" required>
+                        <option value="" disabled {% if not current_provider %}selected{% endif %}>-- 请选择 --</option>
+                        <option value="openai" {% if current_provider == 'OpenAI' %}selected{% endif %}>OpenAI</option>
+                        <option value="qwen" {% if current_provider == 'Qwen' %}selected{% endif %}>Qwen</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="model_version">版本：</label>
+                    <select id="model_version" name="model_version" required>
+                        <option value="" disabled selected>--请选择版本--</option>
+                        <!-- JavaScript 动态填充 -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- 2. 中间：对话历史仅展示，不可编辑 -->
+            <div class="messages">
+                {% for msg in messages %}
+                    {% if msg.role == 'user' %}
+                        <div class="message">
+                            <span class="user-msg">你:</span>
+                            <span class="msg-content">{{ msg.content }}</span>
+                        </div>
+                    {% else %}
+                        <div class="message">
+                            <span class="assistant-msg">AI:</span>
+                            <span class="msg-content">{{ msg.content }}</span>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- 3. 底部：输入框 + 提交按钮 -->
+            <div class="input-area">
+                <label for="user_input">你的问题：</label>
+                <textarea id="user_input" name="user_input" rows="2" placeholder="在这里输入问题..." required></textarea>
+                <button type="submit">发送</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

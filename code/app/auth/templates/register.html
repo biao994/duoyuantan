@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <title>注册</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            padding: 8px;
+            width: 50%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>用户注册</h1>
+        <form method="POST">
+            <p><input type="text" name="username" placeholder="用户名" required></p>
+            <p><input type="password" name="password" placeholder="密码" required></p>
+            <p><input type="submit" value="提交"></p>
+        </form>
+        <a href="/login">已有账号？去登录</a>
+    </div>
+</body>
+</html>
