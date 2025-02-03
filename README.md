@@ -44,6 +44,7 @@ pip install -r requirements.txt
 2️⃣ 运行项目
 
 cd code
+
 python run.py
 
 启动后，在浏览器中访问 http://127.0.0.1:5003。
