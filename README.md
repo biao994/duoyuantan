@@ -75,5 +75,6 @@ api设置界面
 
 
 聊天界面
-![image](https://github.com/user-attachments/assets/a85f242f-8ee9-4047-a2ac-ae00a7bb6eae)
+![image](https://github.com/user-attachments/assets/2d785f4d-d05f-4430-a72f-5e4c8819bc38)
+
 
