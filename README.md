@@ -56,19 +56,24 @@ python run.py
 
 登录界面
 
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/ee45bfb2-efbb-4f1c-a80e-b28cc3d4a0ec)
+
 
 注册界面
 
-![alt text](image-1.png)
+![image](https://github.com/user-attachments/assets/c10bcba1-33f4-4619-854d-27f8035a996b)
+
 
 主页界面
 
-![alt text](image-3.png)
+![image](https://github.com/user-attachments/assets/3af63f54-f1be-420f-955a-f8aec4ce7244)
+
 
 api设置界面
 
-![alt text](image-4.png)
+![image](https://github.com/user-attachments/assets/ecfcea17-5c58-4c9e-8866-1df1393f8d8e)
+
 
 聊天界面
-![alt text](image-2.png)
+![image](https://github.com/user-attachments/assets/a85f242f-8ee9-4047-a2ac-ae00a7bb6eae)
+
