@@ -51,3 +51,24 @@ cd code
 python run.py
 
 启动后，在浏览器中访问 http://127.0.0.1:5003。
+
+功能截图
+
+登录界面
+
+![alt text](image.png)
+
+注册界面
+
+![alt text](image-1.png)
+
+主页界面
+
+![alt text](image-3.png)
+
+api设置界面
+
+![alt text](image-4.png)
+
+聊天界面
+![alt text](image-2.png)
