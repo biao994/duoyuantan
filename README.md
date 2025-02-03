@@ -31,14 +31,17 @@ API 调用：OpenAI API、阿里云 DashScope API（通义千问）
 确保你的环境安装了 Python 3.8+，建议使用 virtualenv 创建虚拟环境：
 
 创建虚拟环境（可选）
+
 python -m venv venv
 
 激活虚拟环境
+
 source venv/bin/activate # Mac/Linux
 
 venv\Scripts\activate # Windows
 
 安装依赖
+
 pip install -r requirements.txt 
 
 2️⃣ 运行项目
