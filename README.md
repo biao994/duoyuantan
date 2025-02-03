@@ -14,15 +14,6 @@
 
 🌐 Web 端 UI：提供简单易用的前端界面，用户可直接通过浏览器访问。
 
-🚀 技术栈
-
-后端：Flask + SQLAlchemy
-
-数据库：SQLite / MySQL
-
-前端：HTML + Bootstrap + Jinja2
-
-API 调用：OpenAI API、阿里云 DashScope API（通义千问）
 
 📥 安装与运行
 
