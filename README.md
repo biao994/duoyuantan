@@ -14,15 +14,6 @@
 
 🌐 Web 端 UI：提供简单易用的前端界面，用户可直接通过浏览器访问。
 
-🚀 技术栈
-
-后端：Flask + SQLAlchemy
-
-数据库：SQLite / MySQL
-
-前端：HTML + Bootstrap + Jinja2
-
-API 调用：OpenAI API、阿里云 DashScope API（通义千问）
 
 📥 安装与运行
 
@@ -56,19 +47,25 @@ python run.py
 
 登录界面
 
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/ee45bfb2-efbb-4f1c-a80e-b28cc3d4a0ec)
+
 
 注册界面
 
-![alt text](image-1.png)
+![image](https://github.com/user-attachments/assets/c10bcba1-33f4-4619-854d-27f8035a996b)
+
 
 主页界面
 
-![alt text](image-3.png)
+![image](https://github.com/user-attachments/assets/3af63f54-f1be-420f-955a-f8aec4ce7244)
+
 
 api设置界面
 
-![alt text](image-4.png)
+![image](https://github.com/user-attachments/assets/ecfcea17-5c58-4c9e-8866-1df1393f8d8e)
+
 
 聊天界面
-![alt text](image-2.png)
+![image](https://github.com/user-attachments/assets/2d785f4d-d05f-4430-a72f-5e4c8819bc38)
+
+
