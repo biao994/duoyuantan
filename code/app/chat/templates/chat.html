@@ -139,6 +139,10 @@
                 'qwen': [
                 { value: 'qwen-plus', text: 'Qwen2.5-Plus' },
                 { value: 'qwen-max', text: 'Qwen2.5-Max' }
+                ],
+                'deepseek': [
+                    { value: 'deepseek-chat', text: 'DeepSeek Chat' },
+                    { value: 'deepseek-reasoner', text: 'DeepSeek Reasoner' }
                 ]
             };
 
@@ -193,6 +197,7 @@
                         <option value="" disabled {% if not current_provider %}selected{% endif %}>-- 请选择 --</option>
                         <option value="openai" {% if current_provider == 'OpenAI' %}selected{% endif %}>OpenAI</option>
                         <option value="qwen" {% if current_provider == 'Qwen' %}selected{% endif %}>Qwen</option>
+                        <option value="deepseek" {% if current_provider == 'DeepSeek' %}selected{% endif %}>DeepSeek</option>
                     </select>
                 </div>
                 <div>

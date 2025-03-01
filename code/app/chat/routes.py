@@ -1,12 +1,11 @@
 import os
 import datetime
-import openai
 import requests
 from flask import render_template, request, redirect, url_for, session, flash
 from app.models  import db, Chat, Message
 from . import chat_blueprint
 from app.models import User, UserAPIKey
-
+from openai import OpenAI
 
 
 def get_api_key(user_id, provider):
@@ -19,7 +18,6 @@ def get_api_key(user_id, provider):
 def call_openai_api(messages, api_key, model_version="gpt-3.5-turbo"):
     os.environ['HTTPS_PROXY'] = "http://127.0.0.1:7890"  # 代理示例
     try:
-        from openai import OpenAI
         client = OpenAI(api_key=api_key) 
         resp = client.chat.completions.create(
             model=model_version,
@@ -33,7 +31,7 @@ def call_openai_api(messages, api_key, model_version="gpt-3.5-turbo"):
 
 def call_qwen_api(messages, api_key, model_version="qwen-plus"):
     try:
-        from openai import OpenAI
+
         client = OpenAI(
             api_key=api_key,
             base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
@@ -45,7 +43,22 @@ def call_qwen_api(messages, api_key, model_version="qwen-plus"):
         return completion.choices[0].message.content
     except Exception as e:
         return f"[通义千问调用出错] {str(e)}"
-    
+
+def call_deepseek_api(messages, api_key, model_version="deepseek-chat"):
+    try:
+        client = OpenAI(
+            api_key=api_key,
+            base_url="https://api.deepseek.com"  
+        )
+        resp = client.chat.completions.create(
+            model=model_version,
+            messages=messages,
+            stream=False 
+        )
+        return resp.choices[0].message.content
+    except Exception as e:
+        return f"[DeepSeek API 调用出错] {str(e)}"
+      
 @chat_blueprint.route('/')
 def index():
     if 'user_id' not in session:
@@ -114,7 +127,6 @@ def chat_view(chat_id):
         chat_obj.model_provider = provider
         chat_obj.model_version = model_version
         db.session.commit()
-
         api_key = get_api_key(user_id, provider)
         if not api_key:
             assistant_reply = f"{provider.capitalize()} ({model_version}): 尚未配置[{provider}]的API Key，无法调用。"
@@ -129,6 +141,9 @@ def chat_view(chat_id):
                 assistant_reply = call_openai_api(conversation, api_key, model_version)
             elif provider == 'qwen':
                 assistant_reply = call_qwen_api(conversation, api_key, model_version)
+            # 在原有的 provider 判断之后添加：
+            elif provider == 'deepseek':
+                assistant_reply = call_deepseek_api(conversation, api_key, model_version)
             else:
                 assistant_reply = f"不支持的模型: {provider}"
 
