@@ -4,7 +4,7 @@
 
 ✨ 项目特色
 
-📌 多 AI 模型支持：目前支持 OpenAI GPT、通义千问 Qwen，未来可扩展其他大模型。
+📌 多 AI 模型支持：目前支持 OpenAI GPT、通义千问 Qwen、DeepSeek，未来可扩展其他大模型。
 
 🏗 模块化架构：使用 Flask 蓝图（Blueprint）进行模块化开发，结构清晰，可扩展性强。
 
